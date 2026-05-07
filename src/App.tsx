@@ -21,6 +21,55 @@ const NAV_LINKS = [
   { name: 'Locations', href: '#' },
 ];
 
+const OurStoryModal = ({ onClose }: { onClose: () => void }) => (
+  <motion.div
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="fixed inset-0 z-50 flex items-center justify-center p-6"
+    style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+    onClick={onClose}
+  >
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 40 }}
+      onClick={e => e.stopPropagation()}
+      className="bg-brand-cream-light rounded-[2rem] p-12 max-w-lg w-full relative shadow-2xl"
+    >
+      <button onClick={onClose} className="absolute top-6 right-6 text-brand-brown hover:text-brand-orange transition">
+        <X size={24} />
+      </button>
+
+      <div className="flex items-center gap-2 mb-6">
+        <Leaf size={16} className="text-brand-orange" />
+        <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-orange">Our Story</span>
+      </div>
+
+      <h2 className="text-4xl font-serif font-black italic text-brand-brown mb-6">
+        Rooted in Craft, Grown with Love
+      </h2>
+
+      <p className="text-brand-brown/70 text-sm leading-relaxed mb-4">
+        Heirloom Coffee was born in 2012 from a simple belief — that a great cup of coffee can make an ordinary moment extraordinary. What started as a single small café has grown into a beloved community staple, guided by the same values we started with.
+      </p>
+
+      <p className="text-brand-brown/70 text-sm leading-relaxed mb-8">
+        We source our beans directly from small family farms, roast in small batches, and pair every cup with seasonal food made from scratch. Every detail is intentional. Every ingredient is chosen with care.
+      </p>
+
+      <div className="grid grid-cols-3 gap-4 border-t border-brand-brown/10 pt-8">
+        {[['2012', 'Founded'], ['100%', 'Organic'], ['3', 'Locations']].map(([stat, label]) => (
+          <div key={label} className="text-center">
+            <div className="text-2xl font-serif font-black italic text-brand-orange">{stat}</div>
+            <div className="text-[10px] uppercase tracking-widest text-brand-brown/50 mt-1">{label}</div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  </motion.div>
+);
+
 const motionConfig = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -33,66 +82,84 @@ const motionConfig = {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showStory, setShowStory] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md bg-black/20">
+    <>
+      <nav className="sticky top-0 z-50 py-6 px-6 md:px-12 flex justify-between items-center backdrop-blur-md bg-black/20">
 
-      <div className="flex items-center gap-2 cursor-pointer group">
-        <div className="w-10 h-10 bg-brand-orange text-white flex items-center justify-center rounded-full group-hover:rotate-12 transition-transform duration-300">
-          <Leaf size={20} fill="currentColor" />
+        <div className="flex items-center gap-2 cursor-pointer group">
+          <div className="w-10 h-10 bg-brand-orange text-white flex items-center justify-center rounded-full group-hover:rotate-12 transition-transform duration-300">
+            <Leaf size={20} fill="currentColor" />
+          </div>
+          <span className="text-2xl font-serif font-bold text-white italic">
+            Heirloom Coffee
+          </span>
         </div>
-        <span className="text-2xl font-serif font-bold text-white italic">
-          Heirloom Coffee
-        </span>
-      </div>
 
-      <div className="hidden md:flex gap-10 items-center">
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.name}
-            href={link.href}
-            className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-          >
-            {link.name}
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
-          </a>
-        ))}
-      </div>
-
-      <button className="hidden md:block bg-brand-brown border border-white text-white px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-brand-brown transition">
-        Order Online
-      </button>
-
-      <button
-        aria-label="Toggle menu"
-        className="md:hidden text-white"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <X size={32} /> : <MenuIcon size={32} />}
-      </button>
-
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-brand-brown p-8 flex flex-col gap-6 md:hidden"
-          >
-            {NAV_LINKS.map((link) => (
-              <a
+        <div className="hidden md:flex gap-10 items-center">
+          {NAV_LINKS.map((link) => (
+            link.name === 'Our Story' ? (
+              <button
                 key={link.name}
-                href={link.href}
-                className="text-white text-xl"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => setShowStory(true)}
+                className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
               >
                 {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
+              </button>
+            ) : (
+              
+                key={link.name}
+                href={link.href}
+                className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </a>
-            ))}
-          </motion.div>
-        )}
+            )
+          ))}
+        </div>
+
+        <button className="hidden md:block bg-brand-brown border border-white text-white px-8 py-3 rounded-full text-[10px] uppercase tracking-widest font-bold hover:bg-white hover:text-brand-brown transition">
+          Order Online
+        </button>
+
+        <button
+          aria-label="Toggle menu"
+          className="md:hidden text-white"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          {isMenuOpen ? <X size={32} /> : <MenuIcon size={32} />}
+        </button>
+
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-full left-0 w-full bg-brand-brown p-8 flex flex-col gap-6 md:hidden"
+            >
+              {NAV_LINKS.map((link) => (
+                
+                  key={link.name}
+                  href={link.href}
+                  className="text-white text-xl"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      <AnimatePresence>
+        {showStory && <OurStoryModal onClose={() => setShowStory(false)} />}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 
