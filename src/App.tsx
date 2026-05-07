@@ -306,15 +306,15 @@ export default function App() {
               Artisan coffee crafted with patience and care.
             </p>
 
-            <button className="mt-8 bg-brand-orange text-white px-8 py-4 rounded-full text-xs uppercase font-bold">
-              Explore Menu
-            </button>
+            <a href="#menu" className="mt-8 inline-block bg-brand-orange text-white px-8 py-4 rounded-full text-xs uppercase font-bold">
+  Explore Menu
+</a>
           </motion.div>
         </div>
       </section>
 
       {/* MENU */}
-      <section className="py-40 bg-brand-cream relative">
+      <section id="menu" className="py-40 bg-brand-cream relative">
 
         <div className="container mx-auto px-6 md:px-12">
 
