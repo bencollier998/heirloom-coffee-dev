@@ -94,7 +94,7 @@ const Navbar = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </button>
             ) : (
-<a              
+ <a             
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
@@ -124,14 +124,24 @@ const Navbar = () => {
               className="absolute top-full left-0 w-full bg-brand-brown p-8 flex flex-col gap-6 md:hidden"
             >
               {NAV_LINKS.map((link) => (
- <a               
-                  key={link.name}
-                  href={link.href}
-                  className="text-white text-xl"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </a>
+                link.name === 'Our Story' ? (
+                  <button
+                    key={link.name}
+                    onClick={() => { setShowStory(true); setIsMenuOpen(false); }}
+                    className="text-white text-xl text-left"
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  
+                    key={link.name}
+                    href={link.href}
+                    className="text-white text-xl"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                )
               ))}
             </motion.div>
           )}
