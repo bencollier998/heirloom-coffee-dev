@@ -69,7 +69,7 @@ const MENU_ITEMS = [
     category: 'Bakery',
     title: 'Carrot Cake',
     description: 'Moist spiced carrot cake with cream cheese frosting.',
-    image: 'https://images.unsplash.com/photo-1676300186098-9b5ae9916e3c?q=80&w=690&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    image: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729',
     icon: Utensils,
     ingredients: 'Carrot, cinnamon, cream cheese, walnuts',
     prep: '2 min',
@@ -250,7 +250,7 @@ const LocationsModal = ({ onClose }: { onClose: () => void }) => {
                 <Clock size={14} className="text-brand-orange mt-0.5 shrink-0" />
                 <p className="text-brand-brown/70 text-sm">{loc.hours}</p>
               </div>
- <a             
+              
                 href={loc.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -286,12 +286,12 @@ const Card = ({ title, category, description, image, icon: Icon, ingredients, pr
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div className="w-72 md:w-80 flex-shrink-0 h-[520px]" style={{ perspective: '1200px' }}>
+    <div className="w-72 md:w-80 flex-shrink-0 h-[520px]" style={{ perspective: '1200px', willChange: 'transform' }}>
       <motion.div
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ duration: 0.8 }}
         className="relative w-full h-full"
-        style={{ transformStyle: 'preserve-3d' }}
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
       >
         <div className="absolute inset-0 backface-hidden bg-brand-cream-light rounded-[2rem] overflow-hidden shadow-sm border border-brand-brown/5 flex flex-col">
           <div className="relative h-56 overflow-hidden">
@@ -394,7 +394,7 @@ const ViewAllModal = ({ onClose }: { onClose: () => void }) => (
       <h2 className="text-3xl font-serif font-black italic text-brand-brown mb-8">
         Autumnal Favorites
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {MENU_ITEMS.map((item) => (
           <Card key={item.title} {...item} />
         ))}
@@ -430,11 +430,11 @@ const Navbar = () => {
         <div className="hidden md:flex gap-10 items-center">
           {NAV_LINKS.map((link) => (
             link.name === 'Menu' ? (
-<a              
+              
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-               >
+              >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </a>
@@ -443,7 +443,7 @@ const Navbar = () => {
                 key={link.name}
                 onClick={() => handleNavClick(link.name)}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-            >
+              >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </button>
@@ -470,7 +470,7 @@ const Navbar = () => {
             >
               {NAV_LINKS.map((link) => (
                 link.name === 'Menu' ? (
-<a                 
+                  
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
@@ -505,7 +505,7 @@ const Navbar = () => {
   );
 };
 
-const Footer = () => (
+const Footer = ({ onShowStory, onShowLocations }: { onShowStory: () => void; onShowLocations: () => void }) => (
   <footer className="bg-[#1a0f0a] text-white pt-32 pb-16 px-6 md:px-12">
     <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
       <div>
@@ -522,9 +522,16 @@ const Footer = () => (
       <div>
         <h4 className="text-brand-orange font-bold mb-6">Links</h4>
         <ul className="space-y-3 text-white/60 text-sm">
-          {['Menu', 'Story', 'Locations', 'Shop'].map(i => (
-            <li key={i}>{i}</li>
-          ))}
+          <li>
+            <a href="#menu" className="hover:text-brand-orange transition">Menu</a>
+          </li>
+          <li>
+            <button onClick={onShowStory} className="hover:text-brand-orange transition">Story</button>
+          </li>
+          <li>
+            <button onClick={onShowLocations} className="hover:text-brand-orange transition">Locations</button>
+          </li>
+          <li>Shop</li>
         </ul>
       </div>
       <div>
@@ -552,6 +559,8 @@ const Footer = () => (
 export default function App() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [showViewAll, setShowViewAll] = useState(false);
+  const [showStory, setShowStory] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
 
   const scroll = (dir: 'left' | 'right') => {
     if (scrollRef.current) {
@@ -647,7 +656,15 @@ export default function App() {
         {showViewAll && <ViewAllModal onClose={() => setShowViewAll(false)} />}
       </AnimatePresence>
 
-      <Footer />
+      <AnimatePresence>
+        {showStory && <OurStoryModal onClose={() => setShowStory(false)} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showLocations && <LocationsModal onClose={() => setShowLocations(false)} />}
+      </AnimatePresence>
+
+      <Footer onShowStory={() => setShowStory(true)} onShowLocations={() => setShowLocations(true)} />
     </div>
   );
 }
