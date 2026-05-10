@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
   { name: 'Our Story', href: '#' },
-  { name: 'Menu', href: '#' },
+  { name: 'Menu', href: '#menu' },
   { name: 'Gallery', href: '#' },
   { name: 'Locations', href: '#' },
 ];
