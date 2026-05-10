@@ -133,7 +133,7 @@ const Navbar = () => {
                     {link.name}
                   </button>
                 ) : (
-                  
+ <a                 
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
