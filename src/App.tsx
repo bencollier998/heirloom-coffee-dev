@@ -67,18 +67,18 @@ const MENU_ITEMS = [
   },
   {
     category: 'Bakery',
-    title: 'Pecan Brownie',
-    description: 'Rich dark chocolate brownie topped with candied pecans.',
-    image: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c',
+    title: 'Carrot Cake',
+    description: 'Moist spiced carrot cake with cream cheese frosting.',
+    image: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729',
     icon: Utensils,
-    ingredients: 'Dark chocolate, pecans, butter, eggs',
+    ingredients: 'Carrot, cinnamon, cream cheese, walnuts',
     prep: '2 min',
   },
   {
     category: 'Hot Drink',
     title: 'Butterscotch Hot Chocolate',
     description: 'Creamy hot chocolate with a rich butterscotch swirl.',
-    image: 'https://images.unsplash.com/photo-1542990253-a781e9b6a1ab',
+    image: 'https://images.unsplash.com/photo-1517578239113-b03992dcdd25',
     icon: Coffee,
     ingredients: 'Dark chocolate, butterscotch, steamed milk',
     prep: '5 min',
@@ -87,7 +87,7 @@ const MENU_ITEMS = [
     category: 'Cold Drink',
     title: 'Spiced Apple Juice',
     description: 'Warm pressed apple juice with cinnamon and star anise.',
-    image: 'https://images.unsplash.com/photo-1576673442511-7e39b6545c87',
+    image: 'https://images.unsplash.com/photo-1600271886742-f049cd451bba',
     icon: Leaf,
     ingredients: 'Pressed apple, cinnamon, star anise, clove',
     prep: '3 min',
@@ -250,7 +250,7 @@ const LocationsModal = ({ onClose }: { onClose: () => void }) => {
                 <Clock size={14} className="text-brand-orange mt-0.5 shrink-0" />
                 <p className="text-brand-brown/70 text-sm">{loc.hours}</p>
               </div>
- <a             
+              
                 href={loc.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -430,7 +430,7 @@ const Navbar = () => {
         <div className="hidden md:flex gap-10 items-center">
           {NAV_LINKS.map((link) => (
             link.name === 'Menu' ? (
-<a             
+              
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
@@ -470,7 +470,7 @@ const Navbar = () => {
             >
               {NAV_LINKS.map((link) => (
                 link.name === 'Menu' ? (
-<a                 
+                  
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
