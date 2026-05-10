@@ -418,7 +418,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 h-20 px-6 md:px-12 flex justify-between items-center backdrop-blur-md bg-black/20">
+      <nav className="sticky top-0 z-50 h-20 px-6 md:px-12 flex justify-between items-center backdrop-blur-md bg-black/20" style={{ transform: 'translateZ(0)', willChange: 'transform' }}>
         <div className="flex items-center gap-2 cursor-pointer group">
           <div className="w-10 h-10 bg-brand-orange text-white flex items-center justify-center rounded-full group-hover:rotate-12 transition-transform duration-300">
             <Leaf size={20} fill="currentColor" />
