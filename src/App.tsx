@@ -193,7 +193,7 @@ const GalleryModal = ({ onClose }: { onClose: () => void }) => {
 const LocationsModal = ({ onClose }: { onClose: () => void }) => {
   const locations = [
     {
-      name: 'Heirloom — Marylebone',
+      name: 'Heirloom — London',
       address: '14 Paddington Street, London W1U 5AS',
       hours: 'Mon–Fri 7am–6pm · Sat–Sun 8am–5pm',
       maps: 'https://maps.google.com/?q=14+Paddington+Street+London',
