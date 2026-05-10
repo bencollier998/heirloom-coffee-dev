@@ -394,7 +394,7 @@ const ViewAllModal = ({ onClose }: { onClose: () => void }) => (
       <h2 className="text-3xl font-serif font-black italic text-brand-brown mb-8">
         Autumnal Favorites
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {MENU_ITEMS.map((item) => (
           <Card key={item.title} {...item} />
         ))}
