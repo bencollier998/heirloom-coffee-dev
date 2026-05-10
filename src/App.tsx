@@ -6,7 +6,8 @@ import {
   Utensils, 
   Leaf,
   Menu as MenuIcon,
-  X
+  X,
+  MapPin
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -61,6 +62,134 @@ const OurStoryModal = ({ onClose }: { onClose: () => void }) => (
   </motion.div>
 );
 
+const GalleryModal = ({ onClose }: { onClose: () => void }) => {
+  const photos = [
+    { src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600', alt: 'Cozy cafe interior' },
+    { src: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600', alt: 'Latte art' },
+    { src: 'https://images.unsplash.com/photo-1464979681340-bdd28a61699e?w=600', alt: 'Autumn pastries' },
+    { src: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600', alt: 'Barista at work' },
+    { src: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=600', alt: 'Coffee beans' },
+    { src: 'https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600', alt: 'Seasonal tart' },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-6"
+      style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 40 }}
+        onClick={e => e.stopPropagation()}
+        className="bg-brand-cream-light rounded-[2rem] p-8 max-w-2xl w-full relative shadow-2xl"
+      >
+        <button onClick={onClose} className="absolute top-6 right-6 text-brand-brown hover:text-brand-orange transition">
+          <X size={24} />
+        </button>
+        <div className="flex items-center gap-2 mb-6">
+          <Leaf size={16} className="text-brand-orange" />
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-orange">Gallery</span>
+        </div>
+        <h2 className="text-3xl font-serif font-black italic text-brand-brown mb-8">
+          Moments from Our Café
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {photos.map((photo) => (
+            <div key={photo.alt} className="aspect-square rounded-2xl overflow-hidden">
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+              />
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const LocationsModal = ({ onClose }: { onClose: () => void }) => {
+  const locations = [
+    {
+      name: 'Heirloom — Marylebone',
+      address: '14 Paddington Street, London W1U 5AS',
+      hours: 'Mon–Fri 7am–6pm · Sat–Sun 8am–5pm',
+      maps: 'https://maps.google.com/?q=14+Paddington+Street+London',
+    },
+    {
+      name: 'Heirloom — Shoreditch',
+      address: '32 Redchurch Street, London E2 7DP',
+      hours: 'Mon–Fri 7am–7pm · Sat–Sun 8am–6pm',
+      maps: 'https://maps.google.com/?q=32+Redchurch+Street+London',
+    },
+    {
+      name: 'Heirloom — Notting Hill',
+      address: '8 Pembridge Road, London W11 3HL',
+      hours: 'Mon–Sun 8am–5pm',
+      maps: 'https://maps.google.com/?q=8+Pembridge+Road+London',
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-6"
+      style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 40 }}
+        onClick={e => e.stopPropagation()}
+        className="bg-brand-cream-light rounded-[2rem] p-10 max-w-lg w-full relative shadow-2xl"
+      >
+        <button onClick={onClose} className="absolute top-6 right-6 text-brand-brown hover:text-brand-orange transition">
+          <X size={24} />
+        </button>
+        <div className="flex items-center gap-2 mb-6">
+          <Leaf size={16} className="text-brand-orange" />
+          <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-orange">Locations</span>
+        </div>
+        <h2 className="text-3xl font-serif font-black italic text-brand-brown mb-8">
+          Find Us
+        </h2>
+        <div className="space-y-6">
+          {locations.map((loc) => (
+            <div key={loc.name} className="border-b border-brand-brown/10 pb-6 last:border-0 last:pb-0">
+              <h3 className="font-serif font-bold text-brand-brown text-lg italic mb-2">{loc.name}</h3>
+              <div className="flex items-start gap-2 mb-1">
+                <MapPin size={14} className="text-brand-orange mt-0.5 shrink-0" />
+                <p className="text-brand-brown/70 text-sm">{loc.address}</p>
+              </div>
+              <div className="flex items-start gap-2 mb-3">
+                <Clock size={14} className="text-brand-orange mt-0.5 shrink-0" />
+                <p className="text-brand-brown/70 text-sm">{loc.hours}</p>
+              </div>
+              
+                href={loc.maps}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] uppercase tracking-widest font-bold text-brand-orange hover:text-brand-brown transition border-b border-brand-orange/30 pb-0.5"
+              >
+                Get Directions →
+              </a>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const motionConfig = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -70,6 +199,15 @@ const motionConfig = {
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showStory, setShowStory] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
+
+  const handleNavClick = (name: string) => {
+    if (name === 'Our Story') setShowStory(true);
+    if (name === 'Gallery') setShowGallery(true);
+    if (name === 'Locations') setShowLocations(true);
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
@@ -84,17 +222,8 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex gap-10 items-center">
           {NAV_LINKS.map((link) => (
-            link.name === 'Our Story' ? (
-              <button
-                key={link.name}
-                onClick={() => setShowStory(true)}
-                className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
-              </button>
-            ) : (
- <a             
+            link.name === 'Menu' ? (
+              
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
@@ -102,6 +231,15 @@ const Navbar = () => {
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </a>
+            ) : (
+              <button
+                key={link.name}
+                onClick={() => handleNavClick(link.name)}
+                className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
+              </button>
             )
           ))}
         </div>
@@ -124,16 +262,8 @@ const Navbar = () => {
               className="absolute top-full left-0 w-full bg-brand-brown p-8 flex flex-col gap-6 md:hidden"
             >
               {NAV_LINKS.map((link) => (
-                link.name === 'Our Story' ? (
-                  <button
-                    key={link.name}
-                    onClick={() => { setShowStory(true); setIsMenuOpen(false); }}
-                    className="text-white text-xl text-left"
-                  >
-                    {link.name}
-                  </button>
-                ) : (
- <a                 
+                link.name === 'Menu' ? (
+                  
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
@@ -141,6 +271,14 @@ const Navbar = () => {
                   >
                     {link.name}
                   </a>
+                ) : (
+                  <button
+                    key={link.name}
+                    onClick={() => handleNavClick(link.name)}
+                    className="text-white text-xl text-left"
+                  >
+                    {link.name}
+                  </button>
                 )
               ))}
             </motion.div>
@@ -149,6 +287,12 @@ const Navbar = () => {
       </nav>
       <AnimatePresence>
         {showStory && <OurStoryModal onClose={() => setShowStory(false)} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showGallery && <GalleryModal onClose={() => setShowGallery(false)} />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showLocations && <LocationsModal onClose={() => setShowLocations(false)} />}
       </AnimatePresence>
     </>
   );
