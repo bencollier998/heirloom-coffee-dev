@@ -16,3 +16,7 @@
 .perspective-\[1200px\] {
   perspective: 1200px;
 }
+
+html {
+  overflow-y: scroll;
+}

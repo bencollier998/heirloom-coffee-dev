@@ -294,7 +294,7 @@ const Card = ({ title, category, description, image, icon: Icon, ingredients, pr
         style={{ transformStyle: 'preserve-3d' }}
       >
         <div className="absolute inset-0 backface-hidden bg-brand-cream-light rounded-[2rem] overflow-hidden shadow-sm border border-brand-brown/5 flex flex-col">
-          <div className="relative aspect-[4/5] overflow-hidden">
+          <div className="relative h-56 overflow-hidden">
             <img
               src={image}
               alt={title}
@@ -560,7 +560,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-brand-cream min-h-screen">
+    <div className="bg-brand-cream min-h-screen overflow-x-hidden">
       <Navbar />
       <section className="relative h-screen flex items-center">
         <img
