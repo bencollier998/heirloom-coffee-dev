@@ -193,7 +193,7 @@ const GalleryModal = ({ onClose }: { onClose: () => void }) => {
 const LocationsModal = ({ onClose }: { onClose: () => void }) => {
   const locations = [
     {
-      name: 'Heirloom — London',
+      name: 'Heirloom — Marylebone',
       address: '14 Paddington Street, London W1U 5AS',
       hours: 'Mon–Fri 7am–6pm · Sat–Sun 8am–5pm',
       maps: 'https://maps.google.com/?q=14+Paddington+Street+London',
@@ -250,7 +250,7 @@ const LocationsModal = ({ onClose }: { onClose: () => void }) => {
                 <Clock size={14} className="text-brand-orange mt-0.5 shrink-0" />
                 <p className="text-brand-brown/70 text-sm">{loc.hours}</p>
               </div>
- <a             
+              
                 href={loc.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -293,7 +293,7 @@ const Card = ({ title, category, description, image, icon: Icon, ingredients, pr
         className="relative w-full h-full"
         style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
       >
-        <div className="absolute inset-0 backface-hidden bg-brand-cream-light rounded-[2rem] overflow-hidden shadow-sm border border-brand-brown/5 flex flex-col">
+        <div className="absolute inset-0 backface-hidden bg-brand-cream-light rounded-[2rem] overflow-hidden shadow-sm border border-brand-brown/5 flex flex-col min-h-full">
           <div className="relative h-56 overflow-hidden">
             <img
               src={image}
@@ -323,7 +323,7 @@ const Card = ({ title, category, description, image, icon: Icon, ingredients, pr
             </button>
           </div>
         </div>
-        <div className="absolute inset-0 rotate-y-180 backface-hidden bg-white rounded-[2rem] shadow-2xl p-8 flex flex-col justify-between">
+        <div className="absolute inset-0 rotate-y-180 backface-hidden bg-white rounded-[2rem] shadow-2xl p-8 flex flex-col justify-between min-h-full">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <Icon size={18} className="text-brand-orange" />
@@ -430,7 +430,7 @@ const Navbar = () => {
         <div className="hidden md:flex gap-10 items-center">
           {NAV_LINKS.map((link) => (
             link.name === 'Menu' ? (
- <a             
+              
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
@@ -470,7 +470,7 @@ const Navbar = () => {
             >
               {NAV_LINKS.map((link) => (
                 link.name === 'Menu' ? (
-<a                  
+                  
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
@@ -632,7 +632,7 @@ export default function App() {
           <div
             ref={scrollRef}
             className="flex gap-6 overflow-x-auto pb-6 scrollbar-hide"
-            style={{ scrollSnapType: 'x mandatory' }}
+            style={{ scrollSnapType: 'x mandatory', isolation: 'isolate' }}
           >
             {MENU_ITEMS.map((item) => (
               <div key={item.title} style={{ scrollSnapAlign: 'start' }}>
