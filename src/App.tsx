@@ -250,7 +250,7 @@ const LocationsModal = ({ onClose }: { onClose: () => void }) => {
                 <Clock size={14} className="text-brand-orange mt-0.5 shrink-0" />
                 <p className="text-brand-brown/70 text-sm">{loc.hours}</p>
               </div>
-              
+ <a             
                 href={loc.maps}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -430,11 +430,11 @@ const Navbar = () => {
         <div className="hidden md:flex gap-10 items-center">
           {NAV_LINKS.map((link) => (
             link.name === 'Menu' ? (
-              
+<a              
                 key={link.name}
                 href={link.href}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-              >
+               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </a>
@@ -443,7 +443,7 @@ const Navbar = () => {
                 key={link.name}
                 onClick={() => handleNavClick(link.name)}
                 className="text-white font-medium hover:text-brand-orange transition-colors relative group text-sm"
-              >
+            >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-orange transition-all group-hover:w-full" />
               </button>
@@ -470,7 +470,7 @@ const Navbar = () => {
             >
               {NAV_LINKS.map((link) => (
                 link.name === 'Menu' ? (
-                  
+<a                 
                     key={link.name}
                     href={link.href}
                     className="text-white text-xl"
