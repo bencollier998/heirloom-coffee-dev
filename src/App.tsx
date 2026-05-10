@@ -69,7 +69,7 @@ const MENU_ITEMS = [
     category: 'Bakery',
     title: 'Carrot Cake',
     description: 'Moist spiced carrot cake with cream cheese frosting.',
-    image: 'https://images.unsplash.com/photo-1621303837174-89787a7d4729',
+    image: 'https://images.unsplash.com/photo-1676300186098-9b5ae9916e3c?q=80&w=690&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     icon: Utensils,
     ingredients: 'Carrot, cinnamon, cream cheese, walnuts',
     prep: '2 min',
