@@ -453,18 +453,17 @@ const PrivacyModal = ({ onClose }: { onClose: () => void }) => (
   </motion.div>
 );
 
+// ─── UNIFIED ORDER MODAL ────────────────────────────────────────────────────
+// Single shared bag across both Café and Shop tabs
 const OrderModal = ({ onClose }: { onClose: () => void }) => {
   const [activeTab, setActiveTab] = useState<'cafe' | 'shop'>('cafe');
-  const [cafeBag, setCafeBag] = useState<BagItem[]>([]);
-  const [shopBag, setShopBag] = useState<BagItem[]>([]);
+  // ONE bag for both tabs
+  const [bag, setBag] = useState<BagItem[]>([]);
   const [step, setStep] = useState<'menu' | 'bag' | 'delivery' | 'pickup' | 'confirmed'>('menu');
   const [deliveryInfo, setDeliveryInfo] = useState({ name: '', address: '', email: '', time: '' });
   const [pickupInfo, setPickupInfo] = useState({ name: '', email: '', store: 'Marylebone', time: '' });
   const [errors, setErrors] = useState<string[]>([]);
   const [orderNumber] = useState(() => Math.floor(100000 + Math.random() * 900000).toString());
-
-  const bag = activeTab === 'cafe' ? cafeBag : shopBag;
-  const setBag = activeTab === 'cafe' ? setCafeBag : setShopBag;
 
   const addToBag = (item: { title: string; price: number }) => {
     setBag(prev => {
@@ -586,12 +585,18 @@ const OrderModal = ({ onClose }: { onClose: () => void }) => {
             )}
           </div>
         ) : (
+          // ── MENU STEP ──────────────────────────────────────────────────────
           <div>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2"><Leaf size={16} className="text-brand-orange" /><span className="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-orange">Order Online</span></div>
-              {totalItems > 0 && <button onClick={() => setStep('bag')} className="flex items-center gap-2 bg-brand-brown text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-black transition"><ShoppingBag size={14} /> Bag ({totalItems}) · £{total.toFixed(2)}</button>}
+              {totalItems > 0 && (
+                <button onClick={() => setStep('bag')} className="flex items-center gap-2 bg-brand-brown text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-black transition">
+                  <ShoppingBag size={14} /> Bag ({totalItems}) · £{total.toFixed(2)}
+                </button>
+              )}
             </div>
 
+            {/* Tab switcher */}
             <div className="flex gap-2 mb-8 bg-brand-cream-light rounded-2xl p-1">
               <button onClick={() => setActiveTab('cafe')} className={`flex-1 py-3 rounded-xl text-[10px] uppercase tracking-widest font-bold transition ${activeTab === 'cafe' ? 'bg-brand-brown text-white' : 'text-brand-brown/60 hover:text-brand-brown'}`}>☕ Café Menu</button>
               <button onClick={() => setActiveTab('shop')} className={`flex-1 py-3 rounded-xl text-[10px] uppercase tracking-widest font-bold transition ${activeTab === 'shop' ? 'bg-brand-brown text-white' : 'text-brand-brown/60 hover:text-brand-brown'}`}>🛍️ Shop</button>
@@ -819,12 +824,25 @@ const Footer = ({ onShowStory, onShowLocations, onShowShop, onShowCareers, onSho
         </div>
       </div>
       <div className="border-t border-white/10 mt-16 pt-8 text-center text-white/30 text-sm">© 2024 Heirloom Coffee</div>
+
+      {/* ── Newsletter toast — fixed close button, works on mobile ── */}
       <AnimatePresence>
         {subscribed && (
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-brand-brown text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 z-50">
-            <Leaf size={16} className="text-brand-orange" />
-            <span className="text-sm font-medium">Thank you for subscribing to the Heirloom mailing list!</span>
-            <button onClick={() => setSubscribed(false)} className="ml-2 text-white/50 hover:text-white transition"><X size={16} /></button>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="fixed bottom-8 left-4 right-4 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-auto bg-brand-brown text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3 z-50"
+          >
+            <Leaf size={16} className="text-brand-orange flex-shrink-0" />
+            <span className="text-sm font-medium flex-1">Thank you for subscribing to the Heirloom mailing list!</span>
+            <button
+              onClick={() => setSubscribed(false)}
+              className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-full hover:bg-white/20 transition text-white"
+              aria-label="Dismiss"
+            >
+              <X size={16} />
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
